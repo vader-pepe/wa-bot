@@ -1,20 +1,17 @@
-import { AnyMessageContent, proto } from "@whiskeysockets/baileys";
+import { proto } from "@whiskeysockets/baileys";
 import { ErrorHandler } from "../ErrorHandler";
 import { StickerFactory } from "../Sticker";
 import { Waifu } from "../Waifu";
 import { WASocketType } from "../app";
 import { Profile } from "../Profile";
+import { Base } from "../Base";
 
-export class Bot {
-  msg: proto.IWebMessageInfo
-  sendMessageWTyping: (msg: AnyMessageContent, jid: string) => Promise<void>
+export class Bot extends Base {
   prefix: string
-  sock: WASocketType
-  constructor(sock: WASocketType, msg: proto.IWebMessageInfo, sendMessageWTyping: (msg: AnyMessageContent, jid: string) => Promise<void>, prefix: string) {
-    this.msg = msg
-    this.sendMessageWTyping = sendMessageWTyping
+
+  constructor(sock: WASocketType, msg: proto.IWebMessageInfo, prefix: string) {
+    super(sock, msg)
     this.prefix = prefix
-    this.sock = sock
   }
 
   async listen() {
@@ -38,7 +35,6 @@ export class Bot {
         command = this.msg.message.extendedTextMessage.text
         break;
 
-      // dm
       default:
         break;
     }
@@ -50,23 +46,25 @@ export class Bot {
     1. [${this.prefix}menu] Tampilkan menu ini
     2. [${this.prefix}sticker] Ubah media menjadi stiker
     3. [${this.prefix}waifu] Temukan cinta sejati anda!
+    4. [${this.prefix}profile] 
+        -photo- Ubah photo profile bot ini!
 `}, this.msg.key.remoteJid!)
 
       case (command.startsWith(`${this.prefix}sticker`)):
-        const sticker = new StickerFactory(this.msg, this.sendMessageWTyping)
+        const sticker = new StickerFactory(this.sock, this.msg)
         return await sticker.createSticker()
 
       case (command.startsWith(`${this.prefix}waifu`)):
-        const waifu = new Waifu(this.msg, this.sendMessageWTyping)
+        const waifu = new Waifu(this.sock, this.msg)
         return await waifu.generateWaifu()
 
       case (command.startsWith(`${this.prefix}profile`)):
-        const p = new Profile(this.sock, this.msg, this.sendMessageWTyping);
+        const p = new Profile(this.sock, this.msg);
         return await p.listen(command)
 
       default:
         if (command.startsWith(this.prefix)) {
-          return new ErrorHandler(this.sendMessageWTyping, this.msg, 'Perintah tidak ditemukan!')
+          return new ErrorHandler(this.sock, this.msg, 'Perintah tidak ditemukan!')
         }
     }
   }

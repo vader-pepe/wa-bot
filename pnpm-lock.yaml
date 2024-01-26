@@ -36,8 +36,8 @@ dependencies:
     specifier: ^10.8.1
     version: 10.9.2(@types/node@20.11.6)(typescript@5.3.3)
   wa-sticker-formatter:
-    specifier: ^4.4.4
-    version: 4.4.4
+    specifier: github:alensaito1/wa-sticker-formatter
+    version: git@github.com+alensaito1/wa-sticker-formatter/210a287b4237901be459653bbcbf5049f57d94b0
 
 devDependencies:
   '@types/node':
@@ -1078,20 +1078,6 @@ packages:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
     dev: false
 
-  /wa-sticker-formatter@4.4.4:
-    resolution: {integrity: sha512-tl2tXlu7HEs630+1LcJsdavNGEysyQV7EIe/tFsPJCEd2jteG0nGouWNUglUEjW+bDCZGXw9VpJgUtwVGIKr8w==}
-    dependencies:
-      axios: 0.21.4
-      file-type: 16.5.4
-      fluent-ffmpeg: 2.1.2
-      fs-extra: 10.1.0
-      image-size: 1.1.1
-      node-webpmux: 3.2.0
-      sharp: 0.30.5
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
   /which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
     hasBin: true
@@ -1123,6 +1109,22 @@ packages:
   /yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
+    dev: false
+
+  git@github.com+alensaito1/wa-sticker-formatter/210a287b4237901be459653bbcbf5049f57d94b0:
+    resolution: {commit: 210a287b4237901be459653bbcbf5049f57d94b0, repo: git@github.com:alensaito1/wa-sticker-formatter.git, type: git}
+    name: wa-sticker-formatter
+    version: 4.4.4
+    dependencies:
+      axios: 0.21.4
+      file-type: 16.5.4
+      fluent-ffmpeg: 2.1.2
+      fs-extra: 10.1.0
+      image-size: 1.1.1
+      node-webpmux: 3.2.0
+      sharp: 0.30.5
+    transitivePeerDependencies:
+      - debug
     dev: false
 
   github.com/adiwajshing/libsignal-node/11dbd962ea108187c79a7c46fe4d6f790e23da97:

@@ -1,12 +1,11 @@
-import { AnyMessageContent, proto } from "@whiskeysockets/baileys";
+import { proto } from "@whiskeysockets/baileys";
+import { WASocketType } from "../app";
+import { Base } from "../Base";
 
-export class ErrorHandler {
-  msg: proto.IWebMessageInfo
-  sendMessageWTyping: (msg: AnyMessageContent, jid: string) => Promise<void>
+export class ErrorHandler extends Base {
   error: string
-  constructor(w: (msg: AnyMessageContent, jid: string) => Promise<void>, msg: proto.IWebMessageInfo, error: string) {
-    this.sendMessageWTyping = w
-    this.msg = msg
+  constructor(sock: WASocketType, msg: proto.IWebMessageInfo, error: string) {
+    super(sock, msg)
     this.sendError(error)
   }
 

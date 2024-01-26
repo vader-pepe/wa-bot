@@ -1,5 +1,7 @@
-import { AnyMessageContent, proto } from "@whiskeysockets/baileys";
+import { proto } from "@whiskeysockets/baileys";
 import { ErrorHandler } from "../ErrorHandler";
+import { Base } from "../Base";
+import { WASocketType } from "../app";
 
 type WaifuResponse = {
   images: Array<
@@ -43,12 +45,9 @@ type WaifuResponse = {
     }>
 } | null
 
-export class Waifu {
-  msg: proto.IWebMessageInfo
-  sendMessageWTyping: (msg: AnyMessageContent, jid: string) => Promise<void>
-  constructor(msg: proto.IWebMessageInfo, w: (msg: AnyMessageContent, jid: string) => Promise<void>) {
-    this.msg = msg
-    this.sendMessageWTyping = w
+export class Waifu extends Base {
+  constructor(sock: WASocketType, msg: proto.IWebMessageInfo) {
+    super(sock, msg)
   }
 
   async generateWaifu() {
@@ -63,7 +62,7 @@ export class Waifu {
     if (response.ok) {
       data = await response.json() as unknown as WaifuResponse
     } else {
-      return new ErrorHandler(this.sendMessageWTyping, this.msg, 'Gambar tidak berhasil didapatkan!')
+      return new ErrorHandler(this.sock, this.msg, 'Gambar tidak berhasil didapatkan!')
     }
 
     const fimg = await fetch(data?.images[0].url ?? '')

@@ -2,8 +2,6 @@ import { Boom } from '@hapi/boom'
 import NodeCache from 'node-cache'
 import readline from 'readline'
 import makeWASocket, {
-  AnyMessageContent,
-  delay,
   DisconnectReason,
   fetchLatestBaileysVersion,
   getAggregateVotesInPollMessage,
@@ -20,7 +18,7 @@ import open from 'open'
 import fs from 'fs'
 import MAIN_LOGGER from "./logger"
 import { Bot } from './Bot'
-import 'dotenv'
+import 'dotenv/config'
 
 const logger = MAIN_LOGGER.child({})
 logger.level = 'trace'
@@ -164,18 +162,6 @@ const startSock = async () => {
     askForOTP()
   }
 
-  const sendMessageWTyping = async (msg: AnyMessageContent, jid: string) => {
-    await sock.presenceSubscribe(jid)
-    await delay(500)
-
-    await sock.sendPresenceUpdate('composing', jid)
-    await delay(2000)
-
-    await sock.sendPresenceUpdate('paused', jid)
-
-    await sock.sendMessage(jid, msg)
-  }
-
   // the process function lets you process all events that just occurred
   // efficiently in a batch
   sock.ev.process(
@@ -231,7 +217,7 @@ const startSock = async () => {
           for (const msg of upsert.messages) {
             if (!msg.key.fromMe && doReplies) {
               console.log('replying to', msg.key.remoteJid)
-              const b = new Bot(sock, msg, sendMessageWTyping, PREFIX)
+              const b = new Bot(sock, msg, PREFIX)
               await b.listen()
               // await sock!.readMessages([msg.key])
               // await sendMessageWTyping({ text: 'Hello there!' }, msg.key.remoteJid!)

@@ -1,32 +1,25 @@
-import { AnyMessageContent, downloadMediaMessage, proto } from "@whiskeysockets/baileys";
-import Sticker from "wa-sticker-formatter";
+import { downloadMediaMessage, proto } from "@whiskeysockets/baileys";
 import { ErrorHandler } from "../ErrorHandler";
+import { Base } from "../Base";
+import { WASocketType } from "../app";
+import Sticker, { Exif, StickerTypes, createSticker } from "wa-sticker-formatter";
 
-export class StickerFactory {
-  msg: proto.IWebMessageInfo
-  sendMessageWTyping: (msg: AnyMessageContent, jid: string) => Promise<void>
-  constructor(msg: proto.IWebMessageInfo, w: (msg: AnyMessageContent, jid: string) => Promise<void>) {
-    this.msg = msg
-    this.sendMessageWTyping = w
+export class StickerFactory extends Base {
+  constructor(sock: WASocketType, msg: proto.IWebMessageInfo) {
+    super(sock, msg)
   }
 
   async createSticker() {
     const buff = await downloadMediaMessage(this.msg, "buffer", {}) as Buffer
     const { type } = this.getMessageMedia(this.msg.message)
-    if (type === 'video') {
-      return new ErrorHandler(this.sendMessageWTyping, this.msg, "Saat ini bot belum support video")
-    }
+    const sticker = await createSticker(buff, { author: this.msg?.pushName ?? "", type: StickerTypes.CROPPED })
 
-    const sticker = new Sticker(buff, {
-      quality: 50,
-      author: this.msg?.pushName ?? "",
-    });
+    // const sticker = new Sticker(buff, { author: this.msg?.pushName ?? "" });
 
-    const media = await sticker.toBuffer()
-    if (type === 'image' || media.length < 1024 * 1000) {
-      return await this.sendMessageWTyping({ sticker: media, isAnimated: true }, this.msg.key.remoteJid)
+    if (type === 'image' || type === 'video') {
+      return await this.sendMessageWTyping({ sticker: sticker }, this.msg.key.remoteJid)
     }
-    return new ErrorHandler(this.sendMessageWTyping, this.msg, "Gambar terlalu besar!")
+    return new ErrorHandler(this.sock, this.msg, "Gambar terlalu besar!")
   }
 
   private getMessageMedia(message: proto.IWebMessageInfo['message']): {
