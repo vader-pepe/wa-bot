@@ -10,7 +10,7 @@ export class BaseUtil {
     this.msg = msg;
   }
 
-  async sendMessageWTyping(msg: AnyMessageContent, jid: string) {
+  async sendMessageWTyping(msgContent: AnyMessageContent, jid: string) {
     await this.sock.presenceSubscribe(jid)
     await delay(500)
 
@@ -19,7 +19,7 @@ export class BaseUtil {
 
     await this.sock.sendPresenceUpdate('paused', jid)
 
-    await this.sock.sendMessage(jid, msg)
+    await this.sock.sendMessage(jid, msgContent, { quoted: this.msg })
   }
 
   sanitizePhoneNumber(number: string) {

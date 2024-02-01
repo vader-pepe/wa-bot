@@ -1,8 +1,7 @@
 import { downloadMediaMessage, proto } from "@whiskeysockets/baileys";
-import { ErrorHandler } from "../ErrorHandler";
 import { Base } from "../Base";
 import { WASocketType } from "../app";
-import Sticker, { Exif, StickerTypes, createSticker } from "wa-sticker-formatter";
+import { StickerTypes, createSticker } from "wa-sticker-formatter";
 
 export class StickerFactory extends Base {
   constructor(sock: WASocketType, msg: proto.IWebMessageInfo) {
@@ -14,12 +13,9 @@ export class StickerFactory extends Base {
     const { type } = this.getMessageMedia(this.msg.message)
     const sticker = await createSticker(buff, { author: this.msg?.pushName ?? "", type: StickerTypes.CROPPED })
 
-    // const sticker = new Sticker(buff, { author: this.msg?.pushName ?? "" });
-
     if (type === 'image' || type === 'video') {
       return await this.sendMessageWTyping({ sticker: sticker }, this.msg.key.remoteJid)
     }
-    return new ErrorHandler(this.sock, this.msg, "Gambar terlalu besar!")
   }
 
   private getMessageMedia(message: proto.IWebMessageInfo['message']): {

@@ -45,7 +45,7 @@ export class Bot extends Base {
           text: `Menu:
     1. [${this.prefix}menu] Tampilkan menu ini
     2. [${this.prefix}sticker] Ubah media menjadi stiker
-    3. [${this.prefix}waifu] Temukan cinta sejati anda!
+    3. [${this.prefix}waifu] Temukan cinta sejatimu!
     4. [${this.prefix}profile] 
         -photo- Ubah photo profile bot ini!
 `}, this.msg.key.remoteJid!)

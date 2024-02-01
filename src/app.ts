@@ -217,9 +217,9 @@ const startSock = async () => {
           for (const msg of upsert.messages) {
             if (!msg.key.fromMe && doReplies) {
               console.log('replying to', msg.key.remoteJid)
+              await sock!.readMessages([msg.key])
               const b = new Bot(sock, msg, PREFIX)
               await b.listen()
-              // await sock!.readMessages([msg.key])
               // await sendMessageWTyping({ text: 'Hello there!' }, msg.key.remoteJid!)
             }
           }
