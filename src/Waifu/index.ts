@@ -60,7 +60,7 @@ export class Waifu extends Base {
     const response = await fetch(requestUrl)
     let data: WaifuResponse = null
     if (response.ok) {
-      data = await response.json() as unknown as WaifuResponse
+      data = await response.json() as WaifuResponse
     } else {
       return new ErrorHandler(this.sock, this.msg, 'Gambar tidak berhasil didapatkan!')
     }

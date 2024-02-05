@@ -12,7 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.11.6",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "long": "4.0.0",
+    "@types/long": "4.0.0"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.3",

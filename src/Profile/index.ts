@@ -20,7 +20,6 @@ export class Profile extends Base {
       default:
         break;
     }
-
   }
 
   async changePhotoProfile() {

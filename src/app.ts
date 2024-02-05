@@ -220,7 +220,6 @@ const startSock = async () => {
               await sock!.readMessages([msg.key])
               const b = new Bot(sock, msg, PREFIX)
               await b.listen()
-              // await sendMessageWTyping({ text: 'Hello there!' }, msg.key.remoteJid!)
             }
           }
         }
@@ -282,7 +281,6 @@ const startSock = async () => {
       }
     }
   )
-
   return sock
 
   async function getMessage(key: WAMessageKey): Promise<WAMessageContent | undefined> {
