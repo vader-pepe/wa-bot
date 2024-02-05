@@ -17,6 +17,9 @@ dependencies:
   libphonenumber-js:
     specifier: ^1.10.20
     version: 1.10.54
+  long:
+    specifier: 4.0.0
+    version: 4.0.0
   node-cache:
     specifier: ^5.1.2
     version: 5.1.2
@@ -40,6 +43,9 @@ dependencies:
     version: git@github.com+alensaito1/wa-sticker-formatter/210a287b4237901be459653bbcbf5049f57d94b0
 
 devDependencies:
+  '@types/long':
+    specifier: 4.0.0
+    version: 4.0.0
   '@types/node':
     specifier: ^20.11.6
     version: 20.11.6
@@ -165,9 +171,8 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: false
 
-  /@types/long@4.0.2:
-    resolution: {integrity: sha512-MqTGEo5bj5t157U6fA/BiDynNkn0YknVdh48CMPkTSpFTVmvao5UQmm7uEF6xBEo7qIMAlY/JSleYaE6VOdpaA==}
-    dev: false
+  /@types/long@4.0.0:
+    resolution: {integrity: sha512-1w52Nyx4Gq47uuu0EVcsHBxZFJgurQ+rTKS3qMHxR1GY2T8c2AJYd6vZoZ9q1rupaDjU0yT+Jc2XTyXkjeMA+Q==}
 
   /@types/node@10.17.60:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
@@ -806,7 +811,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/long': 4.0.2
+      '@types/long': 4.0.0
       '@types/node': 10.17.60
       long: 4.0.0
     dev: false

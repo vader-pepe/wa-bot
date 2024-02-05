@@ -7,7 +7,10 @@
     "allowJs": false,
     "sourceMap": true,
     "outDir": "dist",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "long"
+    ]
   },
   "lib": [
     "es2015"
